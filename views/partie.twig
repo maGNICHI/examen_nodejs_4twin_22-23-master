@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+	<body>
+		<center>
+		
+			ID Hotel :<input id="id1" onkeyup="typing()" type="text"><br>
+			ID hotel :<input id="id2" onkeyup="typing()" type="text"><br><br>
+			{# <input onclick="envoye()" type="submit"> #}
+			<button onclick="envoye()" type="submit">Reserver</button>
+			<button onclick="afficher()">Afficher hotel</button>
+		</center>
+		<script>
+			const socket = io.connect();
+
+			name = prompt("votre nom") 
+
+socket.on("x", (data) => {
+t = document.createElement("p")
+t.innerText = ("   is typing ...")
+document.body.append(t)
+})
+
+socket.on("msg", (data) => {
+console.log(JSON.stringify(data));
+//s = document.createElement("p")
+
+})
+
+
+socket.on("aff", (data) => {
+	console.log(JSON.stringify(data));
+s = document.createElement("p")
+s.innerHTML = ("<center>" + "hotel non reservee de id "  +": <br> Nom :" + JSON.stringify(data));
+document.body.append(s)
+})
+
+function typing() { // socket.emit("x", nomuser)
+}
+
+function envoye() {
+
+hotel = {
+hotel: id1.value,
+}
+socket.emit("hotel", hotel)
+}
+
+
+
+function afficher() {
+
+hotel = {
+hotel: id1.value,
+}
+console.log(hotel);
+socket.emit("afficher", hotel)
+}
+
+
+		</script>
+	</body>
+</html>
